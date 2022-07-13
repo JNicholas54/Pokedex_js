@@ -36,16 +36,24 @@ let pokemonRepository = (function () {
         button.classList.add('button-class')
         listPokemon.appendChild(button);
         ulPokemonList.appendChild(listPokemon);
+        addEventListener(button, pokemon);
     }
 
     function showDetails(pokemon) {
         console.log(pokemon);
     }
 
+    function eventListener(button, pokemon) {
+        button.addEventListener('click', function(){
+            showDetails(pokemon)
+        });
+    }
+
     return {
         add: add,
         getAll: getAll,
         addListItem: addListItem,
+        showDetails: showDetails,
     };
 
 })();
@@ -60,7 +68,7 @@ pokemonList.forEach(function (pokemon) {
     pokemonRepository.addListItem(pokemon);
 })    
     
-
+//============================================================================================
 /* FINISHED PODEDEX PROJECT FROM YOUTUBE - completed pokemon index using vanilla html below
 
 const pokedex = document.getElementById('pokedex');
