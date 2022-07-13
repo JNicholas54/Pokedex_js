@@ -38,6 +38,10 @@ let pokemonRepository = (function () {
         ulPokemonList.appendChild(listPokemon);
     }
 
+    function showDetails(pokemon) {
+        console.log(pokemon);
+    }
+
     return {
         add: add,
         getAll: getAll,
