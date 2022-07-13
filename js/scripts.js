@@ -15,7 +15,9 @@ let pokemonRepository = (function () {
     ]
 
     function add(pokemon){
-        if (typeof pokemon === 'object' && 'name' in pokemon){
+        if (typeof pokemon === 'object' && 'name' in pokemon &&
+            "height" in pokemon &&
+            "types" in pokemon) {
             privatePokemonList.push(pokemon);
         } else {
             console.log(`Pokemon is not valid!`);
@@ -26,24 +28,34 @@ let pokemonRepository = (function () {
         return privatePokemonList;
     }
 
+    function addListItem(pokemon) {
+        let ulPokemonList = document.querySelector('.pokemon-list');
+        let listPokemon = document.createElement('li');
+        let button = document.createElement('button');
+        button.innerText = pokemon.name;
+        button.classList.add('button-class')
+        listPokemon.appendChild(button);
+        ulPokemonList.appendChild(listPokemon);
+    }
+
     return {
         add: add,
         getAll: getAll,
+        addListItem: addListItem,
     };
 
 })();
 // I create pokemonList variable to extract the information inside the IIFE
 let pokemonList = pokemonRepository.getAll();
 
+// i'm going to loop with addListItem()
+
+
+
 pokemonList.forEach(function (pokemon) {
-    if (pokemon.height >= 3.0) {
-        document.write(`${pokemon.name} (height: ${pokemon.height}) - Wow, thats's big! <br>`)
-    } else if (pokemon.height > 1.0 && pokemon.height < 3.0) {
-        document.write(`${pokemon.name} (height: ${pokemon.height}) - Medium <br>`)
-    } else {
-        document.write(`${pokemon.name} (height: ${pokemon.height}) - Small <br>`)
-    }
-})
+    pokemonRepository.addListItem(pokemon);
+})    
+    
 
 /* FINISHED PODEDEX PROJECT FROM YOUTUBE - completed pokemon index using vanilla html below
 
