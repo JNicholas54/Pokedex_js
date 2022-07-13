@@ -11,7 +11,7 @@ let pokemonRepository = (function () {
         {name: 'Dragonite', height: 2.2, type: ['Dragon', 'Flying']},
         {name: 'Onix', height: 8.8, type: ['Rock', 'Ground'] },
         {name: 'Gangar', height: 1.5, type: ['Ghost', 'Posion']},
-        {name: 'Picachu', height: 0.4, type: 'Electric'}
+        {name: 'Pikachu', height: 0.4, type: 'Electric'}
     ]
 
     function add(pokemon){
