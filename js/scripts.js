@@ -141,13 +141,13 @@ let pokemonRepository = (function () {
             hideModal();
         }
     });
-    let modalContainer = document.getElementById('modal-container');
+
     modalContainer.addEventListener('click', (e) => {
         // Since this is also triggered when clicking INSIDE the modal
         // We only want to close if the user clicks directly on the overlay
         let target = e.target;
         if (target === modalContainer) {
-          hideModal();
+            hideModal();
         }
     });
 
@@ -161,13 +161,15 @@ let pokemonRepository = (function () {
     };
 
 })();
+
 // I create pokemonList variable to extract the information inside the IIFE
 let pokemonList = pokemonRepository.getAll();
+
 pokemonRepository.loadList().then(function () {
     pokemonList.forEach(function (pokemon) {
         pokemonRepository.addListItem(pokemon);
-});
-});    
+    });
+}); 
     
 //============================================================================================
 /* FINISHED PODEDEX PROJECT FROM YOUTUBE - completed pokemon index using vanilla html below
