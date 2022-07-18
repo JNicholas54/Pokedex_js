@@ -3,9 +3,7 @@ let pokemonRepository = (function () {
     let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
 
     function add(pokemon){
-        if (typeof pokemon === 'object' && 'name' in pokemon &&
-            "height" in pokemon &&
-            "types" in pokemon) {
+        if (typeof pokemon === 'object' && 'name' in pokemon) {
             privatePokemonList.push(pokemon);
         } else {
             console.log(`Pokemon is not valid!`);
