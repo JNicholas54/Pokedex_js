@@ -1,23 +1,18 @@
- body {
-    background-color: orangered;
-    color: white;
-    margin: 0;
-    font-family: 'Rubik', sans-serif;
-    text-align: center;
+html, 
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.container {
-    display: grid;
-    padding: 20px;
-    margin: 0 auto;
-}
-
-.banner {
-    margin-inline-start: 0;
+body {
+  font-family: 'Roboto', sans-serif;
+  line-height: 1.6;
 }
 
 .button-class {
-    background-color: #4caf50; 
+    background-color: #4caf50; /* Green */
     border: none;
     color: white;
     padding: 16px 32px;
@@ -26,13 +21,72 @@
     display: inline-block;
     font-size: 16px;
     margin: 4px 2px;
-    transition: 0.6s;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
     cursor: pointer;
     background-color: white;
     color: black;
-    border-radius: 3px;
     border: 2px solid #4caf50;
-  } 
+  }
+
+
+#modal-container {
+  position: fixed;
+  padding: 20px;
+  box-sizing: border-box;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+
+  /* to show it above other content */
+  z-index: 999; 
+
+  /* to allow scrolling if the screen is not high enough*/
+  overflow: auto; 
+
+  /* this is used to center the modal */
+  display: grid;
+  text-align: center;
+}
+
+.modal {
+  margin: auto;
+  display: inline-block;
+  box-sizing: border-box;
+  background: #fff;
+  padding: 15px;
+  width: 100%;
+  max-width: 700px;
+  text-align: left;
+}
+
+.modal-close {
+  float: right;
+  -webkit-appearance: none;
+  border: 0;
+  background: none;
+  color: #777;
+  text-decoration: underline;
+}
+
+.modal h1 {
+  margin-top: 0;
+}
+
+.modal p {
+  margin-bottom: 0;
+}
+
+#modal-container {
+  display: none;
+}
+
+#modal-container.is-visible {
+  /* my own desire sytle goes here */
+  display: block;
+} 
 
 
 /*
