@@ -137,7 +137,6 @@ let pokemonRepository = (function () {
     });
 
     window.addEventListener('keydown', (e) => {
-        let modalContainer = document.getElementById('modal-container');
         if (e.key === 'Escape' && modalContainer.classList.contains('is-visible')) {
             hideModal();
         }
@@ -150,10 +149,6 @@ let pokemonRepository = (function () {
         if (target === modalContainer) {
           hideModal();
         }
-      });
-
-    document.getElementById('show-modal').addEventListener('click', () => {
-        showModal();
     });
 
     return {
@@ -168,7 +163,6 @@ let pokemonRepository = (function () {
 })();
 // I create pokemonList variable to extract the information inside the IIFE
 let pokemonList = pokemonRepository.getAll();
-
 pokemonRepository.loadList().then(function () {
     pokemonList.forEach(function (pokemon) {
         pokemonRepository.addListItem(pokemon);
