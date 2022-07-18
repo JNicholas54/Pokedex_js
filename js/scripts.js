@@ -1,23 +1,11 @@
 let pokemonRepository = (function () {
-    let privatePokemonList = [
-        {name: "Balbasaur", height: 0.7, type: ["grass", "poison"]},
-        {name: "Abra", height: 0.9, tyoe: "psychic"},
-        {name: "Mew", height: 0.4, type: "psychic"},
-        {name: "Charmeleon", height: 1.1, type: "fire"},
-        {name: "Gyarados", height: 6.5, type: ["water", "flying"]},
-        {name: "Snorlax", height: 2.1, type: "normal"},
-        {name: "Ninetales", height: 1.1, type: "fire"},
-        {name: 'Phyduck', height: 0.8, type: 'Water'},
-        {name: 'Dragonite', height: 2.2, type: ['Dragon', 'Flying']},
-        {name: 'Onix', height: 8.8, type: ['Rock', 'Ground'] },
-        {name: 'Gangar', height: 1.5, type: ['Ghost', 'Posion']},
-        {name: 'Pikachu', height: 0.4, type: 'Electric'}
-    ]
+    let privatePokemonList = [];
+    let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
 
     function add(pokemon){
         if (typeof pokemon === 'object' && 'name' in pokemon &&
             "height" in pokemon &&
-            "type" in pokemon) {
+            "types" in pokemon) {
             privatePokemonList.push(pokemon);
         } else {
             console.log(`Pokemon is not valid!`);
@@ -45,27 +33,57 @@ let pokemonRepository = (function () {
 
     function eventListener(button, pokemon) {
         button.addEventListener('click', function () {
-            showDetails(pokemon)
+            showDetails(pokemon);
         });
     };
+
+    function loadList() {
+        return fetch(apiUrl).then(function (response) {
+            return response.json();
+        }).then(function (json) {
+            json.results.forEach(function (item) {
+                let pokemon = {
+                    name: item.name,
+                    detailsUrl: item.url
+                };
+                add(pokemon);
+            });
+        }).catch(function (e) {
+            console.error(e);
+        });
+    };
+
+    function loadDetails(item) {
+        let url = item.detailsUrl;
+        return fetch(url).then(function (response) {
+            return response.json();
+        }).then(function(details) {
+            // Now we add the details to the item
+            item.imageUrl = details.sprites.frront_default;
+            item.height = details.height;
+            item.types = details.types;
+        }).catch(function (e){
+            console.error(e);
+        });
+    }
 
     return {
         add: add,
         getAll: getAll,
         addListItem: addListItem,
         showDetails: showDetails,
+        loadList: loadList,
+        loadDetails: loadDetails,
     };
 
 })();
 // I create pokemonList variable to extract the information inside the IIFE
 let pokemonList = pokemonRepository.getAll();
 
-// i'm going to loop with addListItem()
-
-
-
-pokemonList.forEach(function (pokemon) {
-    pokemonRepository.addListItem(pokemon);
+pokemonRepository.loadList().then(function () {
+    pokemonList.forEach(function (pokemon) {
+        pokemonRepository.addListItem(pokemon);
+});
 });    
     
 //============================================================================================
@@ -75,7 +93,7 @@ const pokedex = document.getElementById('pokedex');
 
  const fetchPokemon = () => {
     const promises = [];
-    for (let i=1; i <= 150; i++) {
+    for (let i=1; i <= 151; i++) {
         const url =`https://pokeapi.co/api/v2/pokemon/${i}`;
         promises.push(fetch(url).then((res) => res.json()));
     }
