@@ -159,7 +159,6 @@ let pokemonRepository = (function () {
         loadList: loadList,
         loadDetails: loadDetails,
     };
-
 })();
 
 // I create pokemonList variable to extract the information inside the IIFE
