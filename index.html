@@ -2,23 +2,22 @@
 <html lang="en">
 
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>JN.Pokédex</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:ital@1&family=Roboto:ital,wght@0,300;1,300&family=Rubik:ital,wght@1,300&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+    <link rel="stylesheet" href="CSS/styles.css" type="text/css">
     <link rel="shortcut icon" href="./images/pokemon.png">
+    <title>JN.Pokédex</title>
     <!-- POKEDEX FAVICON -- <link href="data:image/x-icon;base64,AAABAAEAEBAQAAAAAAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA////AADq/wAPYwAAAP8iADTWGAD/UQAA/zsFAP/sPQAAAP8AAP/3AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJmZmZmQAAAAmZmZmZmZmZmSIpk5kAkACZmZkzOZmZmZl3eZOZZmZmmZmZmZlmZmaZGqoRGZmZmZkaqhEZREREmRAQERlERESZERERGURERJmZmZmZmZmZmYiZmZmZmZAJiJklWQAAAAmZmZmZAAAAD//wAA//8AAAB/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAAAB/AAAAfwAA" rel="icon" type="image/x-icon" />  -->
   </head>
 
   <body>
-    
     <h1>Jeremy's Pokėdex</h1>
     <ul class="pokemon-list"></ul>
     <div id="container"></div>
-    <button id="show-modal">Show modal</button>
+    <button id='show-modal'>Show modal</button>
     <button id="show-dialog">Show dialog</button>
-    
     <div id='modal-container'></div>
         <!--
         ==================================================
@@ -31,10 +30,11 @@
       </div>
         -->
 
-    <script src="JS/promise-polyfill.js"></script>
-    <script src="JS/fetch-polyfill.js"></script>   
-    <script src="js/scripts.js"></script>
-
+      <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+      <script src="JS/promise-polyfill.js"></script>
+      <script src="JS/fetch-polyfill.js"></script>
+      <script src="JS/scripts.js"></script>
   </body>
 
 </html>

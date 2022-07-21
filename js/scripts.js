@@ -2,7 +2,7 @@ let pokemonRepository = (function () {
     let privatePokemonList = [];
     let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
 
-    function add(pokemon){
+    function add(pokemon) {
         if (typeof pokemon === 'object' && 'name' in pokemon) {
             privatePokemonList.push(pokemon);
         } else {
@@ -19,10 +19,10 @@ let pokemonRepository = (function () {
         let listPokemon = document.createElement('li');
         let button = document.createElement('button');
         button.innerText = pokemon.name;
-        button.classList.add('button-class');
+        button.classList.add('button-class'); // refers to the css class
         listPokemon.appendChild(button);
         ulPokemonList.appendChild(listPokemon);
-        addEventListener(button, pokemon);
+        eventListener(button, pokemon);
     };
 
     function showDetails(pokemon) {
@@ -37,28 +37,41 @@ let pokemonRepository = (function () {
         });
     };
 
+    let container = document.querySelector('#container');
+    let loadingMessage = document.createElement('div');
+    container.append(loadingMessage)
+
+    function showLoadingMessage() {
+        loadingMessage.innerText = 'Just a moment..';
+        console.log('Just a moment...');
+    };
+
     function hideLoadingMessage() {
         loadingMessage.remove();
-        console.log('All good, thanks for waiting!')
-    }
+        console.log('Thanks for waiting!')
+    };
 
     function loadList() {
-        return fetch(apiUrl).then(function (response) {
-            return response.json();
-        }).then(function (json) {
-            json.results.forEach(function (item) {
+        showLoadingMessage();
+        return fetch(apiUrl).then(function (response) { // Allows you to get, or “fetch,” data asynchronously from external data sources. ".then()" is expecting a promise that in this case is the 'apiUrl' the code within is executed If the code in the promise is successfully completed.
+            return response.json(); // the response will be converted to a json. it will return a promise object.
+        }).then(function (json) { // the second .then() statement will contain the callback function for this second promise.  when working with promises, is called “Promise Chaining.” this means that pokemonList will contain an array of JSON objects, each representing a single Pokémon.
+            hideLoadingMessage();
+            json.results.forEach(function (item) { // The result of json, we are going to run it a forEach loop that presents all data from APi
                 let pokemon = {
-                    name: item.name,
-                    detailsUrl: item.url
+                    name: item.name, // I am asking for each item the name
+                    detailsUrl: item.url // I am asking for each item the detailsUrl
                 };
-                add(pokemon);
+                add(pokemon); // once the loop is run, i said add pokemon (the first function in pokemonRepository)
             });
-        }).catch(function (e) {
+        }).catch(function (e) { // If there is an error after push the pokemon(object), is gonna be caught right here
+            hideLoadingMessage();
             console.error(e);
         });
     };
 
     function loadDetails(item) {
+        showLoadingMessage();
         let url = item.detailsUrl;
         return fetch(url).then(function (response) {
             return response.json();
@@ -74,12 +87,14 @@ let pokemonRepository = (function () {
         });
     };
 
-    function showModal(title, text) {
-        let modalContainer = document.getElementById('modal-container');
-        modalContainer.innerHTML = '';   // Clear all existing modal content.
-        let modal = document.createElement('div');
-        modal.classList.add('model');
+    let modalContainer = document.querySelector('#modal-container');
 
+    function showModal(title, text) {
+        modalContainer.innerHTML = ''; // Clear all existing modal content
+        let modal = document.createElement('div');
+        modal.classList.add('modal');
+
+        // add the new modal content
         let closeButtonElement = document.createElement('button');
         closeButtonElement.classList.add('model-close'); // This class is in the CSS
         closeButtonElement.innerText = 'Close';
@@ -94,13 +109,13 @@ let pokemonRepository = (function () {
         modal.appendChild(closeButtonElement);
         modal.appendChild(titleElement);
         modal.appendChild(contentElement);
-        modalContainer.appendChild(modal); // modelCointainer is the father of modal, modal has 3 childs button, title and text.
+        modalContainer.appendChild(modal); // modelCointainer is the father of modal, modal has 3 children: button, title and text.
 
         modalContainer.classList.add('is-visible');
     }
 
     function hideModal() {
-        let modalContainer = document.getElementById('modal-container');
+        // let modalContainer = document.getElementById('modal-container');
         modalContainer.classList.remove('is-visible');
     }
 
