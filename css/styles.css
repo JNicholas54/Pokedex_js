@@ -1,5 +1,6 @@
 body {
     font-family: 'Roboto', sans-serif;
+    background-color: #f77f00;
   }
 
   .button-class {
@@ -26,6 +27,7 @@ body {
 
   .button-class:hover {
     opacity: .8;
+    animation: bounce 0.5s linear;
   }
 
   #modal-container {
@@ -78,6 +80,21 @@ body {
   #modal-container.is-visible {
     /* my own sytle add here */
     display: block;
+  }
+
+  @keyframes bounce {
+    20% {
+        transform: translateY(-6px);
+    }
+    40% {
+        transform: translateY(0px);
+    }
+    60% {
+        transform: translateY(-2px);
+    }
+    80% {
+        transform: translateY(0px);
+    }
   }
 
 
