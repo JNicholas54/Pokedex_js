@@ -78,7 +78,7 @@ let pokemonRepository = (function () {
         }).then(function (details) {
             hideLoadingMessage();
             // Now we add the details to the item
-            item.imageUrl = details.sprites.frront_default;
+            item.imageUrl = details.sprites.front_default;
             item.height = details.height;
             item.types = details.types;
         }).catch(function (e) {
