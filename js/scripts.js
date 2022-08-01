@@ -1,6 +1,9 @@
 let pokemonRepository = (function () {
+    console.log('Init pokemonRepo...')
     let privatePokemonList = [];
     let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
+    let input = $("input");
+    input.on("input", filterList);
 
     function add(pokemon) {
         if (typeof pokemon === 'object' && 'name' in pokemon) {
@@ -17,6 +20,7 @@ let pokemonRepository = (function () {
     function addListItem(pokemon) {
         let ulPokemonList = document.querySelector('.pokemon-list');
         let listPokemon = document.createElement('li');
+        listPokemon.classList.add("col-sm-6", "col-md-4", "col-lg-3");
         let container = document.createElement('div');
         let button = document.createElement('button');
         button.innerText = pokemon.name;
@@ -49,11 +53,11 @@ let pokemonRepository = (function () {
     };
 
     function loadList() {
-        showLoadingMessage();
+        showLoadingMessage(false);
         return fetch(apiUrl).then(function (response) { // Allows you to get, or “fetch,” data asynchronously from external data sources. ".then()" is expecting a promise that in this case is the 'apiUrl' the code within is executed If the code in the promise is successfully completed.
             return response.json(); // the response will be converted to a json. it will return a promise object.
         }).then(function (json) { // the second .then() statement will contain the callback function for this second promise.  when working with promises, is called “Promise Chaining.” this means that pokemonList will contain an array of JSON objects, each representing a single Pokémon.
-            hideLoadingMessage();
+            hideLoadingMessage(true);
             json.results.forEach(function (item) { // The result of json, we are going to run it a forEach loop that presents all data from APi
                 let pokemon = {
                     name: item.name.toUpperCase(), // I am asking for each item the name
@@ -62,30 +66,40 @@ let pokemonRepository = (function () {
                 add(pokemon); // once the loop is run, i said add pokemon (the first function in pokemonRepository)
             });
         }).catch(function (e) { // If there is an error after push the pokemon(object), is gonna be caught right here
-            hideLoadingMessage();
+            hideLoadingMessage(true);
             console.error(e);
         });
     };
 
     function loadDetails(item) {
-        showLoadingMessage();
+        console.log('loading details...')
+        showLoadingMessage(false);
         let url = item.detailsUrl;
         return fetch(url).then(function (response) {
             return response.json();
         }).then(function (details) {
-            hideLoadingMessage();
+            console.log('details:', details)
+            hideLoadingMessage(true);
             // Now we add the details to the item
-            item.imageUrl = details.sprites.front_default;
+            item.pokemonImg = details.sprites.other.dream_world.front_default;
             item.height = details.height;
             let types = [];
-                    details.types.forEach((item) => types.push(item.type.name));
-                    item.types = types;
-                    item.weight = details.weight;
+            details.types.forEach((item) => {
+                let name = item.type.name
+                name = name[0].toUpperCase() + name.substring(1)
+                types.push(name)
+            });
+                item.types = types;
+                item.weight = details.weight;
                 let abilities = [];
-                    details.abilities.forEach((item) => abilities.push(item.abilities.name));
-                    item.types = types;
+                details.abilities.forEach((item) => {
+                    let name = item.ability.name
+                    name = name[0].toUpperCase() + name.substring(1)
+                    abilities.push(name)
+                });
+                    item.abilities = abilities;
         }).catch(function (e) {
-            hideLoadingMessage();
+            hideLoadingMessage(true);
             console.error(e);
         });
     };
@@ -93,6 +107,20 @@ let pokemonRepository = (function () {
     function showDetails(pokemon) {
         loadDetails(pokemon).then(function () {
             console.log(pokemon);
+        });
+    };
+
+    function filterList() {
+        let inputValue = $("input").val();
+        let list = $("li");
+        list.each(function () {
+            let item = $(this);
+            let name = item.text();
+            if (name.toLowerCase().startsWith(inputValue.toLowerCase()) || item.hasClass('nav-item')) {
+                item.show();
+            } else {
+                item.hide();
+            }
         });
     };
 
@@ -106,21 +134,20 @@ let pokemonRepository = (function () {
         modalBody.empty();
 
         //creating elements 
-        let nameElement = $('<h1>' + pokemon.name + '</h1>');
+        let nameElement = $(`<h1>${pokemon.name}</h1>`);
 
-        let imageElement = $('<img class="modal-img" style="width:50%>');
-        imageElement.attr("src", pokemon.imageUrl)
+        let pokemonImage = $(`<img class="modal-img mx-auto" src="${pokemon.pokemonImg}">`);
 
-        let heightElement = $('<p>' + "Height: " + pokemon.height + '</p>');
+        let heightElement = $(`<p class="ml-4 mt-3 mb-0">Height: ${pokemon.height}</p>`);
 
-        let weightElement = $('<p>' + "Weight: " + pokemon.weight + '</p>');
+        let weightElement = $(`<p class="ml-4 mb-0">Weight: ${pokemon.weight}</p>`);
 
-        let typesElement = $('<p>' + "Types: " + pokemon.types + '</p>');
+        let typesElement = $(`<div class="ml-4">Types: ${pokemon.types.join(", ")}</div>`);
 
-        let abilitiesElement = $('<p>' + "Abilities: " + pokemon.abilities + '</p>');
-
+        let abilitiesElement = $(`<p class="ml-4">Abilities: ${pokemon.abilities.join(", ")}</p>`);
+        
         modalTitle.append(nameElement);
-        modalBody.append(imageElement);
+        modalBody.append(pokemonImage);
         modalBody.append(heightElement);
         modalBody.append(weightElement);
         modalBody.append(typesElement);
@@ -190,7 +217,7 @@ let pokemonRepository = (function () {
         addListItem: addListItem,
         showDetails: showDetails,
         loadList: loadList,
-        loadDetails: loadDetails,
+        loadDetails: loadDetails
     };
 })();
 
