@@ -1,8 +1,11 @@
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #f77f00;
-    display: flex;
-    justify-content: space-around;
+  }
+
+  nav {
+    background: #f2f2f2;
+    border-bottom: goldenrod 3px solid;
   }
 
   ul {
@@ -34,6 +37,11 @@ body {
   .button-class:hover {
     opacity: .8;
     animation: bounce 0.5s linear;
+  }
+
+  footer {
+    background: #f2f2f2;
+    border-top: goldenrod 3px solid;
   }
 
   @keyframes bounce {
