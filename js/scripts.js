@@ -34,7 +34,7 @@ let pokemonRepository = (function () {
         });
     };
 
-    let container = document.querySelector('#container');
+    let container = document.querySelector('.container');
     let loadingMessage = document.createElement('div');
     container.append(loadingMessage)
 
