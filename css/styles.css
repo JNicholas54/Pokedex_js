@@ -5,6 +5,10 @@ body {
     justify-content: space-around;
   }
 
+  ul {
+    text-decoration: none;
+  }
+
   .button-class {
     background-color: #4caf50;
     /* Green */
