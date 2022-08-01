@@ -36,6 +36,9 @@ footer {
   border-top: goldenrod 3px solid;
 }
 
+/*
+animation: bounce 0.5s linear;
+
 @keyframes bounce {
   20% {
       transform: translateY(-6px);
@@ -50,7 +53,7 @@ footer {
       transform: translateY(0px);
   }
 }
-
+*/
 
 /*
 h1 {
