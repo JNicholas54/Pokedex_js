@@ -6,12 +6,16 @@
 
 body {
   font-family: 'Roboto', sans-serif;
-  background-color: #f77f00;
+  background-color: #fff;
 }
 
 nav {
-  background: #233000;
+  background: #d5410b;
   border-bottom: goldenrod 3px solid;
+}
+
+.navbar_image {
+align-content: left;
 }
 
 .pokemon-list {
@@ -23,7 +27,7 @@ nav {
 .modal-body {
   opacity: .8;
   color: white;
-  background: #233000;
+  background: goldenrod;
 }
 
 .modal-img {
@@ -32,7 +36,7 @@ nav {
 }
 
 footer {
-  background: #233000;
+  background: #415509;
   border-top: goldenrod 3px solid;
 }
 
