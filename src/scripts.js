@@ -1,26 +1,28 @@
+/* eslint-disable no-undef */
 let pokemonRepository = (function () {
     console.log('Init pokemonRepo...')
     let privatePokemonList = [];
     let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
-    let input = $("input");
-    input.on("input", filterList);
+    // eslint-disable-next-line no-undef
+    let input = $('input');
+    input.on('input', filterList);
 
     function add(pokemon) {
         if (typeof pokemon === 'object' && 'name' in pokemon) {
             privatePokemonList.push(pokemon);
         } else {
-            console.log(`Pokemon is not valid!`);
+            console.log('Pokemon is not valid!');
         }        
-    };
+    }
 
     function getAll() {
         return privatePokemonList;
-    };
+    }
 
     function addListItem(pokemon) {
         let ulPokemonList = document.querySelector('.pokemon-list');
         let listPokemon = document.createElement('li');
-        listPokemon.classList.add("col-sm-6", "col-md-4", "col-lg-3");
+        listPokemon.classList.add('col-sm-6', 'col-md-4', 'col-lg-3');
         let container = document.createElement('div');
         let button = document.createElement('button');
         button.innerText = pokemon.name;
@@ -31,13 +33,13 @@ let pokemonRepository = (function () {
         listPokemon.appendChild(container);
         ulPokemonList.appendChild(listPokemon);
         eventListener(button, pokemon);
-    };
+    }
     
     function eventListener(button, pokemon) {
         button.addEventListener('click', function () {
             showDetails(pokemon)
         });
-    };
+    }
 
     let container = document.querySelector('.container');
     let loadingMessage = document.createElement('div');
@@ -110,11 +112,11 @@ let pokemonRepository = (function () {
             //console.log(pokemon);
             showModal(pokemon);
         });
-    };
+    }
 
     function filterList() {
-        let inputValue = $("input").val();
-        let list = $("li");
+        let inputValue = $('input').val();
+        let list = $('li');
         list.each(function () {
             let item = $(this);
             let name = item.text();
@@ -142,9 +144,9 @@ let pokemonRepository = (function () {
 
         let weightElement = $(`<p class="ml-4 mb-0">Weight: ${pokemon.weight}</p>`);
 
-        let typesElement = $(`<div class="ml-4 mb-0">Types: ${pokemon.types.join(", ")}</div>`);
+        let typesElement = $(`<div class="ml-4 mb-0">Types: ${pokemon.types.join(', ')}</div>`);
 
-        let abilitiesElement = $(`<p class="ml-4">Abilities: ${pokemon.abilities.join(", ")}</p>`);
+        let abilitiesElement = $(`<p class="ml-4">Abilities: ${pokemon.abilities.join(', ')}</p>`);
 
         modalTitle.append(nameElement);
         modalBody.append(pokemonImage);

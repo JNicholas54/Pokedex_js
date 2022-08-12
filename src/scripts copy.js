@@ -1,25 +1,26 @@
+/* eslint-disable no-undef */
 console.log('Init pokemonRepo...')
 let privatePokemonList = [];
 let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
-let input = $("input");
-input.on("input", filterList);
+let input = $('input');
+input.on('input', filterList);
 
 function add(pokemon) {
     if (typeof pokemon === 'object' && 'name' in pokemon) {
         privatePokemonList.push(pokemon);
     } else {
-        console.log(`Pokemon is not valid!`);
+        console.log('Pokemon is not valid!');
     }
-};
+}
 
 function getAll() {
     return privatePokemonList;
-};
+}
 
 function addListItem(pokemon) {
     let ulPokemonList = document.querySelector('.pokemon-list');
     let listPokemon = document.createElement('li');
-    listPokemon.classList.add("col-sm-6", "col-md-4", "col-lg-3");
+    listPokemon.classList.add('col-sm-6', 'col-md-4', 'col-lg-3');
     let container = document.createElement('div');
     let button = document.createElement('button');
     button.innerText = pokemon.name;
@@ -28,14 +29,14 @@ function addListItem(pokemon) {
     listPokemon.appendChild(container);
     ulPokemonList.appendChild(listPokemon);
     eventListener(button, pokemon);
-};
+}
 
 
 function eventListener(button, pokemon) {
     button.addEventListener('click', function () {
         showDetails(pokemon)
     });
-};
+}
 
 let container = document.querySelector('.container');
 let loadingMessage = document.createElement('div');
@@ -98,11 +99,11 @@ function showDetails(pokemon) {
     loadDetails(pokemon).then(function () {
         showModal(pokemon);
     });
-};
+}
 
 function filterList() {
-    let inputValue = $("input").val();
-    let list = $("li");
+    let inputValue = $('input').val();
+    let list = $('li');
     list.each(function () {
         let item = $(this);
         let name = item.text();
@@ -131,7 +132,7 @@ function showModal(pokemon) {
     
     let weightElement = $(`<p class="ml-4 mb-0">Weight: ${pokemon.weight}</p>`);
     
-    let typesElement = $(`<div class="ml-4">Types: ${pokemon.types.join(", ")}</div>`);
+    let typesElement = $(`<div class="ml-4">Types: ${pokemon.types.join(', ')}</div>`);
     
     let abilitiesElement = $(`<p class="ml-4">Abilities: ${pokemon.abilities}</p>`);
     
@@ -153,6 +154,7 @@ document.querySelector('#exampleModal').addEventListener('click', () => {
 
 let dialogPromiseReject;
 
+// eslint-disable-next-line no-unused-vars
 function hideModal() {
     modalContainer.classList.remove('is-visible');
     
